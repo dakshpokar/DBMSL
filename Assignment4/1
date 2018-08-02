@@ -1,0 +1,183 @@
+[pict@localhost ~]$ su
+Password: 
+[root@localhost pict]# /etc/init.d/oracle-xe restart 
+Restarting oracle-xe (via systemctl):                      [  OK  ]
+[root@localhost pict]#  cd /u01/app/oracle/product/11.2.0/xe/bin
+[root@localhost bin]# . ./oracle_env.sh
+[root@localhost bin]#  sqlplus system
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jul 23 14:53:23 2018
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter password: 
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table student3160(rollno number(4) primary key, name varchar2(255), percent number(4,2));
+
+Table created.
+
+SQL> select * from student3160;
+
+no rows selected
+
+SQL> insert into student3160 values(&rollno, '&name', &percent);
+Enter value for rollno: 60
+Enter value for name: Daksh Pokar
+Enter value for percent: 99.99
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(60, 'Daksh Pokar', 99.99)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 13
+Enter value for name: Saurabh Bora
+Enter value for percent: 35.12
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(13, 'Saurabh Bora', 35.12)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 45
+Enter value for name: Aniket Gokhale
+Enter value for percent: 999
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(45, 'Aniket Gokhale', 999)
+insert into student3160 values(45, 'Aniket Gokhale', 999)
+                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> /       
+Enter value for rollno: 45  
+Enter value for name: Aniket Gokhale
+Enter value for percent: 99.9999999
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(45 , 'Aniket Gokhale', 99.9999999)
+insert into student3160 values(45 , 'Aniket Gokhale', 99.9999999)
+                                                      *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> /   
+Enter value for rollno: 59
+Enter value for name: Shubham Pawar
+Enter value for percent: 99
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(59, 'Shubham Pawar', 99)
+
+1 row created.
+
+SQL> /   
+Enter value for rollno: 58
+Enter value for name: Pratik Patil
+Enter value for percent: 96.58
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(58, 'Pratik Patil', 96.58)
+
+1 row created.
+
+SQL> /
+Enter value for rollno: 44 
+Enter value for name: Aniket Kotalwar
+Enter value for percent: 0.14 
+old   1: insert into student3160 values(&rollno, '&name', &percent)
+new   1: insert into student3160 values(44, 'Aniket Kotalwar', 0.14)
+
+1 row created.
+
+SQL> select * from student3160;
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+	60
+Daksh Pokar
+     99.99
+
+	13
+Saurabh Bora
+     35.12
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+
+	59
+Shubham Pawar
+	99
+
+	58
+Pratik Patil
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+     96.58
+
+	44
+Aniket Kotalwar
+       .14
+
+
+SQL> select * from student3160;
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+	60
+Daksh Pokar
+     99.99
+
+	13
+Saurabh Bora
+     35.12
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+
+	59
+Shubham Pawar
+	99
+
+	58
+Pratik Patil
+
+    ROLLNO
+----------
+NAME
+--------------------------------------------------------------------------------
+   PERCENT
+----------
+     96.58
+
+	44
+Aniket Kotalwar
+       .14
+
+
+SQL> exit
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+

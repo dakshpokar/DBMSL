@@ -1,0 +1,432 @@
+package com.dakshpokar.Assign2;
+
+import java.math.BigInteger;
+import java.sql.*;
+import java.util.Scanner;
+public class MainClass {
+
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String DB_URL = "jdbc:mysql://10.10.15.202:3306/te3160db";
+	String DB_USER = "te3160";
+	String DB_PASS  = "te3160";
+	Scanner scan = new Scanner(System.in);
+	Professor prof;
+	public static void main(String args[])
+	{
+		MainClass mainClass = new MainClass();
+		try {
+			mainClass.connect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mainClass.displayMenu();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mainClass.end();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void connect() throws SQLException, ClassNotFoundException
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+		stmt = conn.createStatement();
+	}
+	public void end() throws SQLException{
+		String query;;
+		query = "drop table sequence_test";
+		stmt.execute(query);
+		query = "drop index fname_index on Professors";
+		stmt.execute(query);
+		query = "drop index compound_index on Professors";
+		stmt.execute(query);
+	}
+	public void displayMenu() throws SQLException
+	{
+		char end = 0;
+		while(end != 'y')
+		{
+			System.out.println("Welcome to PICT College");
+			System.out.println("Please choose one from the following");
+			System.out.println("01. Enter data of Professor");
+			System.out.println("02. Delete a Professor");
+			System.out.println("03. Modify a Professor`s Data");
+			System.out.println("04. Display List of Professors");
+			System.out.println("05. Create a Simple view");
+			System.out.println("06. Create a Complex View");
+			System.out.println("07. Display a view");
+			System.out.println("08. Drop a view");
+			System.out.println("09. Perform manipulations on view");
+			System.out.println("10. Index Operations");
+			System.out.println("11. Sequence Operations");
+			System.out.println("0. Exit");
+			System.out.println("Enter your choice: ");
+			int choice = scan.nextInt();
+			switch(choice)
+			{
+			case 1:
+				enterData();
+				break;
+			case 2:
+				deleteData();
+				break;
+			case 3:
+				modifyData();
+				break;
+			case 4:
+				displayData();
+				break;
+			case 5:
+				simpleView();
+				break;
+			case 6:
+				complexView();
+				break;
+			case 7:
+				displayView();
+				break;
+			case 8:
+				dropView();
+				break;
+			case 9:
+				manipulateView();
+				break;
+			case 10:
+				indexOperations();
+				break;
+			case 11:
+				sequenceOperations();
+				break;
+			case 0:
+				System.exit(0);
+			default:
+				System.out.println("Incorrect Choice");
+			}
+		}
+	}
+	public void indexOperations() throws SQLException{
+		int choice = 60;
+		while(choice!=0)	{
+			System.out.println("Which Index Operations you want to do?");
+			System.out.println("1. Unique Index");
+			System.out.println("2. Compound Index");
+			System.out.println("3. Show Index from Tables");
+			System.out.println("4. Select column having index");
+			System.out.println("0. Exit");
+			System.out.println("Enter your choice: ");
+			choice = scan.nextInt();
+			switch(choice){
+			case 1:
+				createUIndex();
+				break;
+			case 2:
+				createCIndex();
+				break;
+			case 3:
+				showIndex();
+				break;
+			case 4:
+				selectIndex();
+				break;
+			case 0:
+				System.exit(0);
+				
+			}
+		}
+	}
+	public void createUIndex() throws SQLException{
+		String index = "create unique index fname_index on Professors(prof_fname)";
+		stmt.execute(index);
+		System.out.println("Unique Index created successfully");
+	}
+	public void createCIndex() throws SQLException{
+		String index = "create index compound_index on Professors(prof_fname, prof_lname)";
+		stmt.execute(index);
+		System.out.println("Compound Index created successfully");
+	}
+	public void showIndex() throws SQLException{
+		String query = "show index from Professors";
+		ResultSet rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(3));
+		}
+		rs.close();
+	}
+	public void selectIndex() throws SQLException{
+		System.out.println("Unique Index");
+		String query = "select prof_fname from Professors use index(fname_index)";
+		ResultSet rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+		}
+		rs.close();
+		System.out.println("Compound Index");
+		query = "select prof_fname, prof_lname from Professors use index(compound_index)";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1) + " \t " + rs.getString(2));
+		}
+		rs.close();
+	}
+	public void sequenceOperations() throws SQLException{
+		System.out.println("Creating a new Table....");
+		String query = "create table sequence_test(id int primary key auto_increment, name varchar(255))";
+		stmt.execute(query);
+		System.out.println("Table created successfully!");
+		
+		System.out.println("Adding two elements to table");
+		query = "insert into sequence_test values(NULL, \"Daksh\")";
+		stmt.execute(query);
+
+		query = "insert into sequence_test values(NULL, \"Sanket\")";
+		stmt.execute(query);
+
+		
+		//Showing the elements
+		
+		query = "select * from sequence_test";
+		ResultSet rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1) + " \t " + rs.getString(2));
+		}
+		rs.close();
+	}
+	public void simpleView() throws SQLException
+	{
+		String query;
+		query = "desc Professors";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		int i = 0;
+		while(rs.next())
+		{
+			System.out.print(String.valueOf(++i) + " - ");
+			System.out.print(rs.getString(1) + "\n");
+		}
+		System.out.println("Enter which columns you want from the list of columns: ");
+		String cols = scan.next();
+		String list[];
+		if(cols.contains(",")){
+			list = cols.split(",");			
+		}
+		else
+		{
+			list = new String[1];
+			list[0] = cols;
+		}
+		i = 0;
+		while(i!=list.length)
+		{
+			System.out.println(list[i]);
+			i++;
+		}
+		rs.close();
+		System.out.println("Enter the name of view: ");
+		String name = scan.next();
+		String viewMaker;
+		viewMaker = "create view "+name+" as select " + cols + " from Professors";
+		System.out.println(viewMaker);
+		stmt.execute(viewMaker);
+		
+	}
+	public void complexView() throws SQLException
+	{
+		System.out.println("\nBy default two tables selected are Professors and Shifts");
+		String query = "create view complex_view as select p.prof_fname, w.duration from Professors p, works w where p.prof_id = w.prof_id";
+		stmt.execute(query);
+		query = "select * from complex_view";
+		ResultSet rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1) + " \t " + rs.getString(2));
+		}
+		rs.close();
+	}
+	public void displayView() throws SQLException
+	{
+		String query;
+		query = "show full tables in te3160db where table_type like \"view\"";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+		}
+		rs.close();
+		System.out.print("Enter the name of view: ");
+		String name;
+		name = scan.next();
+		query = "select * from " + name;
+		rs = stmt.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int colCount = rsmd.getColumnCount();
+		rs.getRow();
+		while(rs.next()){
+			int i = 1;
+			while(i != colCount+1)
+			{
+				System.out.print(rs.getObject(i) + " - ");
+				i++;
+			}
+			System.out.println("\n");
+		}
+		rs.close();
+		
+	}
+	public void displayView(String viewName) throws SQLException
+	{
+		
+		String name = viewName;
+		String query = "";
+		name = scan.next();
+		query = "select * from " + name;
+		rs = stmt.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int colCount = rsmd.getColumnCount();
+		rs.getRow();
+		while(rs.next()){
+			int i = 1;
+			while(i != colCount+1)
+			{
+				System.out.print(rs.getObject(i) + " \t ");
+				i++;
+			}
+			System.out.println("\n");
+		}
+		rs.close();
+		
+	}
+	public void dropView() throws SQLException
+	{
+		String query;
+		query = "show full tables in te3160db where table_type like \"view\"";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+		}
+		rs.close();
+		System.out.print("Enter the name of view: ");
+		String name;
+		name = scan.next();
+		query = "drop view "+name;
+		stmt.execute(query);
+	}
+	public void manipulateView() throws SQLException
+	{
+		String query;
+		query = "show full tables in te3160db where table_type like \"view\"";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+		}
+		rs.close();
+		System.out.print("Enter the name of view: ");
+		String name;
+		name = scan.next();
+		
+		
+	}
+	public void enterData() throws SQLException
+	{
+		String fname, lname, designation, doj, email, city;
+		int dept_id, salary;
+		long phone;
+		System.out.println("Enter the details properly");
+		System.out.println("Enter the First Name of Professor: ");
+		fname = scan.next();
+		System.out.println("Enter the Last Name of Professor: ");
+		lname = scan.next();
+		System.out.println("Enter the Designation of Professor: ");
+		designation = scan.next();
+		System.out.println("Enter the Phone Number: ");
+		phone = scan.nextLong();
+		System.out.println("Enter the date of joining: ");
+		doj = scan.next();
+		System.out.println("Enter the Email ID of Professor: ");
+		email = scan.next();
+		System.out.println("Enter the City of Professor: ");
+		city = scan.next();
+		System.out.println("Enter the salary of Professor: ");
+		salary = scan.nextInt();
+		rs = stmt.executeQuery("select * from Departments");
+		int i = 0;
+		while(rs.next()){
+			System.out.print(++i);
+			System.out.print(" - ");
+			rs.getRow();
+			System.out.println(rs.getString("dept_name"));
+		}
+		System.out.println("Enter the Department of Professor: ");
+		dept_id = scan.nextInt();
+		prof = new Professor(fname, lname, dept_id, designation, salary, doj, email, phone, city);
+		addProfessor(prof);
+		rs.close();
+		
+	}
+	private void addProfessor(Professor p) throws SQLException {
+		String q1;
+		q1 = "select max(prof_id) from Professors";
+		rs = stmt.executeQuery(q1);
+		int id_max = 0;
+		rs.last();
+		id_max = rs.getInt(1) + 1;
+		rs.close();
+		String q2;
+		q2 = "insert into Professors values(";
+		q2 = q2 + id_max + ", ";
+		q2 = q2 + "'" + p.fname + "', ";
+		q2 = q2 + "'" + p.lname + "', ";
+		q2 = q2 + p.dept_id + ", ";
+		q2 = q2 + "'" + p.designation + "', ";
+		q2 = q2 + p.salary + ", ";
+		q2 = q2 + "'" + p.doj + "', ";
+		q2 = q2 + "'" + p.email + "', ";
+		q2 = q2 + p.phone + ", ";
+		q2 = q2 + "'" + p.city + "'";
+		q2 = q2 + ")";
+		stmt.execute(q2);
+		System.out.println("Added Professor!");
+	}
+	public void deleteData() throws SQLException
+	{
+		displayData();
+		System.out.println("Enter which Professor you want to delete: ");
+	}
+	public void modifyData() throws SQLException{
+		String query;
+		displayData();
+		System.out.println("Enter the id of Professor you want to update: ");
+		int id = scan.nextInt();
+		System.out.println("");
+	}
+	public void displayData() throws SQLException
+	{
+		String query;
+		query = "select * from Professors";
+		rs = stmt.executeQuery(query);
+		rs.getRow();
+		while(rs.next())
+		{
+			System.out.println(String.valueOf(rs.getInt(1)) + " - " + rs.getString(2)+ " - " + rs.getString(3) + " - " + String.valueOf(rs.getInt(4)) + " - " + rs.getString(5)+ " - " + String.valueOf(rs.getInt(6)) +" - " + rs.getString(7) + " - " + rs.getString(8) + " - " + String.valueOf(rs.getLong(9)) + " - " + rs.getString(10));
+		}
+		rs.close();
+	}
+	
+}
