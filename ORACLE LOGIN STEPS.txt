@@ -2,7 +2,7 @@
 Steps to login for oracle 11g:-
 
 1) Go to Network.
-2)) Make proxy server ip address “None”.
+2) Make proxy server ip address “None”.
 3) Open terminal:- switch to root
 4) run this commands
 
@@ -14,7 +14,7 @@ c) . ./oracle_env.sh
 
 d)  sqlplus system
 
-enter password:- 
+enter password:- dbsl
 
 It will show you:-
 SQL> prompt
