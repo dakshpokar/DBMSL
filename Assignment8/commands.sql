@@ -9,7 +9,6 @@ INSERT INTO Student3160 values(4, 'Mandar Pandey', '30-NOV-2018', 'Computer', 13
 create or replace trigger before_delete_each_row
 	BEFORE DELETE ON Student3160
 	FOR EACH ROW
-
 BEGIN
 	insert into Alumni3160 values(:old.rollno, :old.name, :old.doa, :old.branch, :old.percent, :old.status); 
 END;
@@ -17,7 +16,6 @@ END;
 create or replace trigger after_delete_each_row
 	AFTER DELETE ON Student3160
 	FOR EACH ROW
-
 BEGIN
 	dbms_output.put_line('Executed after deletion of each row');
 	insert into Alumni3160 values(:old.rollno, :old.name, :old.doa, :old.branch, :old.percent, :old.status); 
