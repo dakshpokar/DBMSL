@@ -12,7 +12,7 @@ create or replace trigger before_delete_each_row
 	BEFORE DELETE ON Student3160
 	FOR EACH ROW
 BEGIN
-	dbms_output.put_line('Executed Before Deletion of each row')
+	dbms_output.put_line('Executed Before Deletion of each row');
 	insert into Alumni3160 values(:old.rollno, :old.name, :old.doa, :old.branch, :old.percent, :old.status); 
 END;
 
