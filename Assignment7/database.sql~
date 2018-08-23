@@ -10,6 +10,7 @@ CREATE OR REPLACE PROCEDURE proc_Grade(id IN number) as
 	v_name varchar2(100);
 	v_amt int;
 	v_class varchar2(100);
+	no_need EXCEPTION
 BEGIN
 	select total_purchase into v_amt from Custom where cust_id = id;
 	v_name := get_Name(id);
@@ -24,9 +25,14 @@ BEGIN
 	elsif (v_amt <= 4999 and v_amt >=2000) then
 		dbms_output.put_line('Silver Customer');
 		v_class := 'Silver';
-
+	else
+		raise no_need;
 	end if;
 	insert into Cat values(id, 'name', 'v_class');
+	EXCEPTION 
+	WHEN no_need THEN
+		dbms_output.put_line('No Category');
+	END;
 END;
 /
 
