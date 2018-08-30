@@ -1,0 +1,70 @@
+SQL> BEGIN   
+  2  	DBMS_OUTPUT.put_line('Hello World!');
+  3  END;
+
+############################################################
+
+SQL> DECLARE 
+  2  	l_message
+  3  	VARCHAR2 (100) := 'HELLO WORLD!';
+  4  BEGIN
+  5  	DBMS_OUTPUT.put_line(l_message);
+  6  EXCEPTION WHEN OTHERS
+  7  	THEN
+  8  		DBMS_OUTPUT.put_line(SQLERRM);
+  9  END;
+ 10  /
+
+
+############################################################
+
+
+SQL> CREATE TABLE Customer3160(cust_id int primary key, name varchar2(100), dop date, nos varchar2(100), status int);
+
+Table created.
+
+############################################################
+
+SQL> CREATE TABLE Fine3160(cust_id int, foreign key(cust_id) references Customer3160(cust_id), dof date, amount number);  
+
+Table created.
+
+############################################################
+
+SQL> insert into Customer3160 values(&cust_id, '&name', '&dop','&nos', &status)                          
+  2  ;
+Enter value for cust_id: 1
+Enter value for name: Daksh
+Enter value for dop: 02-AUG-2018
+Enter value for nos: pokarScheme 
+Enter value for status: 1
+old   1: insert into Customer3160 values(&cust_id, '&name', '&dop','&nos', &status)
+new   1: insert into Customer3160 values(1, 'Daksh', '02-AUG-2018','pokarScheme', 1)
+
+1 row created.
+
+############################################################
+
+SQL> /                                                                         
+Enter value for cust_id: 2
+Enter value for name: Sanket
+Enter value for dop: 05-AUG-2018
+Enter value for nos: pokarScheme
+Enter value for status: 1
+old   1: insert into Customer3160 values(&cust_id, '&name', '&dop','&nos', &status)
+new   1: insert into Customer3160 values(2, 'Sanket', '05-AUG-2018','pokarScheme', 1)
+
+1 row created.
+
+############################################################
+
+SQL> DECLARE
+  2  num1 date;
+  3  BEGIN 
+  4     num1 := '&date';
+  5  	dbms_output.put_line(num1 - sysdate());
+  6  END;
+
+
+
+

@@ -1,0 +1,2 @@
+ create table Student3160(rollno int primary key, name varchar2(100), doa date, branch varchar2(100), percent number, status int);
+

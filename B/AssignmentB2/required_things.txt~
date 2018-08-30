@@ -1,0 +1,10 @@
+Collection
+Arrays
+Embedded Document
+Arrays of 
+Querying of -> $and, $or, $not
+Minimum 10 Queries
+upsert and multi
+
+Collection
+db.createCollection('table_name')
