@@ -1,0 +1,9 @@
+db.createCollection('StockData')
+
+db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: {stock_1: {name: "Reliance", price: 450, quantity: 6}, stock_2: {name: "Mahindra", price: 234, quantity: 6}}})
+WriteResult({ "nInserted" : 1 })
+
+db.StockData.insert({name: "Sanket", age: 15, email: "spokar964@gmail.com", stocks: {stock_1: {name: "Jio", price: 450, quantity: 6}, stock_2: {name: "Tech Mahindra", price: 234, quantity: 5}, stock_3: {name: "Tata", price: 180, quantity: 4}}}})
+WriteResult({ "nInserted" : 1 })
+
+

@@ -1,0 +1,5 @@
+Log in to MONGO DB SERVER
+
+1.) cd mongodb-linux-x86_64-3.0.4/bin/
+2.) ./mongo 10.10.15.202/te3160db -u te3160 -p
+3.) Enter password
