@@ -20,7 +20,7 @@ db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stoc
     }
 ]});
 
-db.StockData.insert({name: "Sanket", age: 17, email: "spokar964@gmail.com", stocks: [
+db.StockData.insert({name: "Sanket", age: 17, email: "spokar964@yahoo.com", stocks: [
     {
         name:  "Reliance",
         price:  200,
@@ -33,7 +33,7 @@ db.StockData.insert({name: "Sanket", age: 17, email: "spokar964@gmail.com", stoc
     }
 ]});
 
-db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@gmail.com", stocks: [
+db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@aol.com", stocks: [
     {
         name:  "Tata",
         price:  180,
@@ -46,7 +46,7 @@ db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@gmail.com", sto
     }
 ]});
 
-db.StockData.insert({name: "Bora", age: 2, email: "Bora@gmail.com", stocks: [
+db.StockData.insert({name: "Bora", age: 2, email: "Bora@aol.com", stocks: [
     {
         name:  "Apple",
         price:  110,
@@ -86,7 +86,7 @@ db.StockData.insert({name: "Goswami", age: 1, email: "goswami@gmail.com", stocks
     }
 ]});
 
-db.StockData.insert({name: "Tendulkar", age: 16, email: "tendulkar@gmail.com", stocks: [
+db.StockData.insert({name: "Tendulkar", age: 16, email: "tendulkar@yahoo.com", stocks: [
     {
         name:  "Sachin",
         price:  100,
@@ -104,9 +104,9 @@ db.StockData.insert({name: "Tendulkar", age: 16, email: "tendulkar@gmail.com", s
     }
 ]});
 
-db.StockData.insert({name: "Raj", age: 16, email: "raj@gmail.com", stocks: [
+db.StockData.insert({name: "Raj", age: 16, email: "raj@yahoo.com", stocks: [
     {
-        name:   "Jio",
+        name:   "Yahoo",
         price:  450,
         quantity: 4
     },
@@ -175,5 +175,15 @@ db.StockData.find({age : { $gte : 18 } } );
 
 Query #3:	Person having R in their name and age > 12
 
-db.StockData.find({"name: 
+db.StockData.find({name: { $regex : "^R" },  age : {$gte : 12}})
+
+
+Query #4:	Person having yahoo mail as email and stock of Yahoo
+
+db.StockData.find({ email: {$regex: "yahoo.com"}, "stocks.name": "Yahoo"});
+
+
+Query #5:	Person having shares of worth > 1000
+
+
 
