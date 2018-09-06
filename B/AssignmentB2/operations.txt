@@ -145,7 +145,7 @@ db.StockData.insert({name: "Rajesh", age: 16, email: "rajesh@gmail.com", stocks:
         quantity: 2
     }
 ]});
-db.StockData.insert({name: "Ram", age: 1, email: "ram@gmail.com", stocks: [
+db.StockData.insert({name: "Ram", age: 19, email: "ram@gmail.com", stocks: [
     {
         name:  "Samsung",
         price:  1,
@@ -157,4 +157,23 @@ db.StockData.insert({name: "Ram", age: 1, email: "ram@gmail.com", stocks: [
         quantity: 4
     }
 ]});
+db.StockData.insert({name: "Rahul", age: 12, email: "rahul@gmail.com", stocks: []});
+
+
+
+Query #1:	People having Samsung Stock
+
+db.StockData.find({"stocks.name" : "Samsung" })
+
+
+
+Query #2:	Person having age greater than 15
+
+db.StockData.find({age : { $gte : 18 } } );
+
+
+
+Query #3:	Person having R in their name and age > 12
+
+db.StockData.find({name: { $regex : "^R" },  age : {$gte : 12}})
 
