@@ -2,7 +2,7 @@ db.createCollection('StockData');
 
 db.StockData.remove({});
 
-db.StockData.insert({name: "Daksh", age: 56, dob: {30, "Sep", 1998}, email: "dakshpokar@gmail.com", stocks: [
+db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: [
     {
         name:  "Reliance",
         price:  200,
@@ -56,6 +56,105 @@ db.StockData.insert({name: "Bora", age: 2, email: "Bora@gmail.com", stocks: [
         name:   "Boieng",
         price:  50,
         quantity: 1
+    }
+]});
+
+db.StockData.insert({name: "Atharva", age: 1, email: "atharva@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 4
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 1
+    }
+]});
+
+
+db.StockData.insert({name: "Goswami", age: 1, email: "goswami@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 4
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 1
+    }
+]});
+
+db.StockData.insert({name: "Tendulkar", age: 16, email: "tendulkar@gmail.com", stocks: [
+    {
+        name:  "Sachin",
+        price:  100,
+        quantity: 4
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 1
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 6
+    }
+]});
+
+db.StockData.insert({name: "Raj", age: 16, email: "raj@gmail.com", stocks: [
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 4
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 4
+    }
+]});
+db.StockData.insert({name: "Rohan", age: 14, email: "rohan@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 7
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 3
+    }
+]});
+db.StockData.insert({name: "Rajesh", age: 16, email: "rajesh@gmail.com", stocks: [
+    {
+        name:  "Sachin",
+        price:  100,
+        quantity: 3
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 6
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 2
+    }
+]});
+db.StockData.insert({name: "Ram", age: 1, email: "ram@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 8
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 4
     }
 ]});
 
