@@ -1,8 +1,50 @@
-db.createCollection('StockData')
+//Creating a Collection
+db.createCollection('StockData');
 
-db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: {stock_1: {name: "Reliance", price: 450, quantity: 6}, stock_2: {name: "Mahindra", price: 234, quantity: 6}}})
+//Removing Everything
+db.StockData.remove({});
 
-db.StockData.insert({name: "Sanket", age: 15, email: "spokar964@gmail.com", stocks: {stock_1: {name: "Jio", price: 450, quantity: 6}, stock_2: {name: "Tech Mahindra", price: 234, quantity: 5}, stock_3: {name: "Tata", price: 180, quantity: 4}}}})
+//Inserting Document into the Collection
+db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: [
+    {
+        name:  "Reliance",
+        price:  200,
+        quantity: 7
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 10
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 8
+    }
+]});
 
+db.StockData.insert({name: "Sanket", age: 17, email: "spokar964@gmail.com", stocks: [
+    {
+        name:  "Reliance",
+        price:  200,
+        quantity: 7
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 10
+    }
+]});
 
-
+db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@gmail.com", stocks: [
+    {
+        name:  "Tata",
+        price:  180,
+        quantity: 7
+    },
+    {
+        name:   "Tech Mahindra",
+        price:  340,
+        quantity: 1
+    }
+]});
