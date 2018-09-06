@@ -1,11 +1,8 @@
-//Creating a Collection
 db.createCollection('StockData');
 
-//Removing Everything
 db.StockData.remove({});
 
-//Inserting Document into the Collection
-db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: [
+db.StockData.insert({name: "Daksh", age: 56, dob: {30, "Sep", 1998}, email: "dakshpokar@gmail.com", stocks: [
     {
         name:  "Reliance",
         price:  200,
@@ -48,3 +45,17 @@ db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@gmail.com", sto
         quantity: 1
     }
 ]});
+
+db.StockData.insert({name: "Bora", age: 2, email: "Bora@gmail.com", stocks: [
+    {
+        name:  "Apple",
+        price:  110,
+        quantity: 4
+    },
+    {
+        name:   "Boieng",
+        price:  50,
+        quantity: 1
+    }
+]});
+
