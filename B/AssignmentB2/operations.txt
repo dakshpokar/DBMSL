@@ -183,7 +183,44 @@ Query #4:	Person having yahoo mail as email and stock of Yahoo
 db.StockData.find({ email: {$regex: "yahoo.com"}, "stocks.name": "Yahoo"});
 
 
-Query #5:	Person having shares of worth > 1000
+Query #5:	Price of all shares each person has
 
+db.StockData.aggregate( 
+	[ 
+		{
+			$unwind: "$stocks"
+		},
+		{
+			$group:
+				{
+					_id: "$name",
+					totalAmount: { $sum: { $multiply: [ "$stocks.price", "$stocks.quantity" ] } }
+				}	
+		}
+	] 
+).pretty()
+
+Query #6:	Person who has shares worth greater than 1000
+db.StockData.aggregate( 
+	[ 
+		{
+			$unwind: "$stocks"
+		},
+		{
+			$group:
+				{
+					_id: "$name",
+					totalAmount: { $sum: { $multiply: [ "$stocks.price", "$stocks.quantity" ] } }
+				}
+		},
+		{
+			$group:
+			{
+				_id: "$name",
+				totalAmount: { $gte : 1000 }
+			}
+		}
+	] 
+)
 
 
