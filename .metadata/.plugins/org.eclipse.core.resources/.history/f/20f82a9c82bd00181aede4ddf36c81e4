@@ -1,0 +1,13 @@
+package tp;
+
+import java.util.*;
+import java.math.*;
+
+public class tp 
+{
+	public static void main(String[] args)
+	{
+		
+	}
+
+}
