@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+import org.json.simple.JSONObject;
+
+public class EDJava {
+	private Scanner sc;
+	public static void main(String[] args) {
+		
+	}
+	public JSONObject encodeObject(String name, Integer price, Integer quantity){
+		sc = new Scanner(System.in);
+		System.out.println("Enter the name of the person: ");
+		String name = sc.nextLine();
+		System.out.println("Enter the Amount of money invested in Stock: ");
+		Integer price = sc.nextInt();
+		System.out.println("Enter the Quantity of stocks: ");
+		Integer quantity = sc.nextInt();
+		JSONObject o = new JSONObject();
+		o.put("name", name);
+		o.put("price", price);
+		o.put("quantity", quantity);
+		return o;
+	}
+	
+}
