@@ -158,32 +158,42 @@ db.StockData.insert({name: "Ram", age: 19, email: "ram@gmail.com", stocks: [
     }
 ]});
 db.StockData.insert({name: "Rahul", age: 12, email: "rahul@gmail.com", stocks: []});
+db.StockData.insert({_id: 1, age: 15, email: "me@me.com", stocks : []});
 
+Query #0: 
 
+Query #1: Count number of stocks
+db.StockData.count()
 
-Query #1:	People having Samsung Stock
+Query #2: Display all stocks
+db.StockData.find()
+
+Query #3:	People having Samsung Stock
 
 db.StockData.find({"stocks.name" : "Samsung" })
 
 
 
-Query #2:	Person having age greater than 15
+Query #4:	Person having age greater than 18, use of gte
 
 db.StockData.find({age : { $gte : 18 } } );
 
+Query #4.5: Person having age less than 18, use of lte
+
+db.StockData.find({age : { $lte : 18 } } );
 
 
-Query #3:	Person having R in their name and age > 12
+Query #5:	Person having R in their name and age > 12
 
 db.StockData.find({name: { $regex : "^R" },  age : {$gte : 12}})
 
 
-Query #4:	Person having yahoo mail as email and stock of Yahoo
+Query #6:	Person having yahoo mail as email and stock of Yahoo
 
 db.StockData.find({ email: {$regex: "yahoo.com"}, "stocks.name": "Yahoo"});
 
 
-Query #5:	Price of all shares each person has
+Query #7:	Price of all shares each person has
 
 db.StockData.aggregate( 
 	[ 
@@ -200,7 +210,7 @@ db.StockData.aggregate(
 	] 
 ).pretty()
 
-Query #6:	Person who has shares worth greater than 1000
+Query #8:	Person who has shares worth greater than 1000
 db.StockData.aggregate( 
 	[ 
 		{
@@ -223,4 +233,11 @@ db.StockData.aggregate(
 	] 
 )
 
+Query #9: MongoDB save method
+db.StockData.save({_id: 1, name: "Goswami", age: 17, email: "meA@meA.com", stocks : []})
 
+Query #10: Update multi
+db.StockData.update({age: 17}, {$set : {age: 18}}, {multi : true})
+
+Query #11: Update upsert
+db.StockData.update({age: 89}, {name: "Rajkumar", email: "raj@raj.com", stocks : []}, {upsert: true})
