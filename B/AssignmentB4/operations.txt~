@@ -1,0 +1,198 @@
+db.createCollection('StockData');
+
+db.StockData.remove({});
+
+db.StockData.insert({name: "Daksh", age: 56, email: "dakshpokar@gmail.com", stocks: [
+    {
+        name:  "Reliance",
+        price:  200,
+        quantity: 7
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 10
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 8
+    }
+]});
+
+db.StockData.insert({name: "Sanket", age: 17, email: "spokar964@yahoo.com", stocks: [
+    {
+        name:  "Reliance",
+        price:  200,
+        quantity: 7
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 10
+    }
+]});
+
+db.StockData.insert({name: "Aniket", age: 5, email: "anikotalwar@aol.com", stocks: [
+    {
+        name:  "Tata",
+        price:  180,
+        quantity: 7
+    },
+    {
+        name:   "Tech Mahindra",
+        price:  340,
+        quantity: 1
+    }
+]});
+
+db.StockData.insert({name: "Bora", age: 2, email: "Bora@aol.com", stocks: [
+    {
+        name:  "Apple",
+        price:  110,
+        quantity: 4
+    },
+    {
+        name:   "Boieng",
+        price:  50,
+        quantity: 1
+    }
+]});
+
+db.StockData.insert({name: "Atharva", age: 1, email: "atharva@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 4
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 1
+    }
+]});
+
+
+db.StockData.insert({name: "Goswami", age: 1, email: "goswami@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 4
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 1
+    }
+]});
+
+db.StockData.insert({name: "Tendulkar", age: 16, email: "tendulkar@yahoo.com", stocks: [
+    {
+        name:  "Sachin",
+        price:  100,
+        quantity: 4
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 1
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 6
+    }
+]});
+
+db.StockData.insert({name: "Raj", age: 16, email: "raj@yahoo.com", stocks: [
+    {
+        name:   "Yahoo",
+        price:  450,
+        quantity: 4
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 4
+    }
+]});
+db.StockData.insert({name: "Rohan", age: 14, email: "rohan@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 7
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 3
+    }
+]});
+db.StockData.insert({name: "Rajesh", age: 16, email: "rajesh@gmail.com", stocks: [
+    {
+        name:  "Sachin",
+        price:  100,
+        quantity: 3
+    },
+    {
+        name:   "Jio",
+        price:  450,
+        quantity: 6
+    },
+    {
+        name:   "Tata",
+        price:  180,
+        quantity: 2
+    }
+]});
+db.StockData.insert({name: "Ram", age: 19, email: "ram@gmail.com", stocks: [
+    {
+        name:  "Samsung",
+        price:  1,
+        quantity: 8
+    },
+    {
+        name:   "Munich Inc.",
+        price:  11,
+        quantity: 4
+    }
+]});
+db.StockData.insert({name: "Rahul", age: 12, email: "rahul@gmail.com", stocks: []});
+
+
+
+############################################################################################
+MapReduce
+############################################################################################
+
+db.StockData.mapReduce(
+	function()	{	
+		key = this.name;
+		temp = this.stocks
+		for(var i = 0;i<temp.length;i++){
+			emit(key, temp[i].price * temp[i].quantity);
+		}
+	},
+	function(key, values)	{	return Array.sum(values)	},
+	{
+		out:	"total_stock_price"	
+	}
+)
+
+db.StockData.mapReduce(
+	function()	{	
+		temp = this.stocks
+		for(var i = 0;i<temp.length;i++){
+			emit(temp[i].name, temp[i].price * temp[i].quantity);
+		}
+	},
+	function(key, values)	{	return Array.sum(values)	},
+	{
+		out:	"total_stock_price"	
+	}
+)
+
+
+
+
+

@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+import org.json.simple.JSONObject;
+
+public class EDJava {
+	static Scanner sc;
+	public static void main(String[] args) {
+		sc = new Scanner(System.in);
+		System.out.println("Enter the name of the person: ");
+		
+	}
+}
